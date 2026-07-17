@@ -1,11 +1,4 @@
-name: Android Build
-
-on: [push]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
+steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -13,12 +6,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: gradle
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
+    - name: Find and Build with Gradle
+      run: |
+        find . -name "gradlew" -exec chmod +x {} \;
+        ./$(find . -name "gradlew" | head -n 1 | cut -c 3-) assembleDebug
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: **/build/outputs/apk/debug/*.apk
