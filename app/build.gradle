@@ -1,0 +1,13 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+android {
+    namespace 'com.example.goldapp'
+    compileSdk 34
+    defaultConfig {
+        applicationId "com.example.goldapp"
+        minSdk 24
+        targetSdk 34
+    }
+}
